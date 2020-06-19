@@ -1,11 +1,11 @@
-package com.zs.test.daggertestapp.ui.main
+package com.zs.test.daggertestapp.ui.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zs.test.daggertestapp.model.user.UserRepository
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private var userRepository: UserRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(private var userRepository: UserRepository) : ViewModel() {
 
     val text = MutableLiveData<String>().apply {
         value = "dagger test"
