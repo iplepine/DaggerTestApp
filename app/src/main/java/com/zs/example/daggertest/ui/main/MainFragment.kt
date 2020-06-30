@@ -1,24 +1,36 @@
 package com.zs.example.daggertest.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.zs.example.daggertest.R
+import com.zs.example.daggertest.ui.MainActivity
 import com.zs.example.daggertest.ui.blue.BlueFragment
 import com.zs.example.daggertest.ui.green.GreenFragment
 import com.zs.example.daggertest.ui.red.RedFragment
+import javax.inject.Inject
 
 open abstract class MainFragment : Fragment() {
 
     enum class FragmentTabName { RED, GREEN, BLUE }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    lateinit var binding: ViewDataBinding
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init()
     }
 
-    lateinit var binding: ViewDataBinding
+    override fun onAttach(context: Context) {
+        (requireActivity() as MainActivity).component.inject(this)
+        super.onAttach(context)
+    }
 
     private fun init() {
         binding.root.findViewById<Button>(R.id.changeToRed).setOnClickListener {
